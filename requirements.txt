@@ -1,0 +1,14 @@
+transformers
+googletrans==4.0.0-rc1
+SpeechRecognition
+git+https://github.com/openai/whisper.git
+gTTS
+PyMuPDF
+flask
+flask-cors
+torch
+playsound
+PyPDF2
+python-docx
+pypandoc
+pyaudio

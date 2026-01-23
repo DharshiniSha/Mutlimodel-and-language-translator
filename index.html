@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Translator Clone</title>
+  <style>
+    body { font-family: Arial; background: #f2f2f2; padding: 30px; }
+    textarea, select, button {
+      width: 100%; padding: 10px; margin: 10px 0; font-size: 16px;
+    }
+    #output { background: white; border: 1px solid #ccc; min-height: 100px; }
+  </style>
+</head>
+<body>
+  <h2>🌍 Google Translate Clone</h2>
+  <textarea id="inputText" placeholder="Enter text here..."></textarea>
+
+  <label for="sourceLang">From:</label>
+  <select id="sourceLang">
+    <option value="auto">Auto Detect</option>
+    <option value="english">English</option>
+    <option value="tamil">Tamil</option>
+    <option value="french">French</option>
+    <option value="hindi">Hindi</option>
+    <option value="german">German</option>
+    <!-- Add more -->
+  </select>
+
+  <label for="targetLang">To:</label>
+  <select id="targetLang">
+    <option value="tamil">Tamil</option>
+    <option value="english">English</option>
+    <option value="french">French</option>
+    <option value="hindi">Hindi</option>
+    <option value="german">German</option>
+    <!-- Add more -->
+  </select>
+
+  <button onclick="translateText()">Translate</button>
+
+  <h3>Translated Text:</h3>
+  <div id="output"></div>
+
+  <script>
+    async function translateText() {
+      const input = document.getElementById("inputText").value;
+      const source = document.getElementById("sourceLang").value;
+      const target = document.getElementById("targetLang").value;
+
+      const res = await fetch("http://127.0.0.1:5000/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: input, source_language: source, target_language: target })
+      });
+
+      const data = await res.json();
+      document.getElementById("output").innerText = data.translated_text || data.error;
+    }
+  </script>
+</body>
+</html>
